@@ -21,7 +21,7 @@
         factory(jQuery, ChineseDistricts);
     }
 })(function ($, ChineseDistricts) {
-
+    // alert(JSON.stringify(ChineseDistricts));
     'use strict';
 
     if (typeof ChineseDistricts === 'undefined') {

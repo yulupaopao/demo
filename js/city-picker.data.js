@@ -19,13 +19,22 @@
     }
 })(function () {
 
+    var ChineseDistricts = {
+        86: {
+            'A-G': [],
+            'H-K': [],
+            'L-S': [],
+            'T-Z': []
+        }
+    };
+
     $.ajax({
         type: "get",
         url: "http://mgr.babatruck.com/address/JsonAddr",
         //dataType:"json",//数据类型是jsonp
         jsonp: "callback",//参数为callback
         jsonpCallback: "my",
-        async: true,
+        async: false,
         success: function (data) {
 
             var tbody = "";
@@ -107,25 +116,11 @@
         }
     })
 
-    var ChineseDistricts = {
-        86: {
-            'A-G': [],
-            'H-K': [],
-            'L-S': [],
-            'T-Z': []
-        }
-    };
-
-    //
-    // console.log('---ChineseDistricts---')
-    // console.log(ChineseDistricts)
-    // console.log('---ChineseDistricts1---')
-    // console.log(ChineseDistricts1)
 
     if (typeof window !== 'undefined') {
-
         window.ChineseDistricts = ChineseDistricts;
     }
+    // alert(JSON.stringify(ChineseDistricts));
     return ChineseDistricts;
 
 });
