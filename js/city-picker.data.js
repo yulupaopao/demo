@@ -34,20 +34,16 @@
         //dataType:"json",//数据类型是jsonp
         jsonp: "callback",//参数为callback
         jsonpCallback: "my",
-        async: false,
+        async: false,//设置ajax是否为异步(默认为true)。 true为异步，false为同步。
         success: function (data) {
 
-            var tbody = "";
             //------------遍历对象 .each的使用-------------
             //对象语法JSON数据格式(当服务器端回调回来的对象数据格式是json数据格式，必须保证JSON的格式要求，回调的对象必须使用eval函数进行转化（否则将得不到Object）。)
             $("#result").html("------------遍历对象 .each的使用-------------");
-            // alert(data); //是个object元素
             data =  eval(data);
 
             //下面使用each进行遍历
             $.each(data, function (n, province) {
-                var trs = "";
-                trs += "<tr><td>" + province.id + "</td> <td>" + province.name + "</td></tr>";
                 var provinceName =province.name;
                 var provinceId =province.id;
                 //取name里面的首字母
@@ -85,7 +81,6 @@
                 $.each(cityData, function (n, city) {
                     var cityId = city.id;
                     var cityName = city.name.substr(0,city.name.indexOf("-"));
-                    // trs += "<tr><td>" + city.id + "</td> <td>" + city.name + "</td></tr>";
                   //往对应的省级对象里面填充地级市
                     ChineseDistricts[provinceId][cityId] = cityName;
                     //创建市级对象
@@ -98,7 +93,6 @@
                         var areaName = area.name.substr(0,area.name.indexOf("-"));
                         areaName = $.trim(areaName);//处理空字符
                         areaName = areaName.replace('null','');
-                        // trs += "<tr><td>" + area.id + "</td> <td>" + area.name + "</td></tr>";
                         //往对应的市级对象里面填充区县
                         ChineseDistricts[cityId][areaId] = areaName;
 
@@ -106,21 +100,33 @@
 
                 });
 
-
-                tbody += trs;
             });
-
-            $("#project").append(tbody);
-
 
         }
     })
 
+    //倒计时10秒
+    // var timer = 10;
+    // countTime();
+    // function countTime() {
+    //     if(timer>=1){
+    //         console.info(timer)
+    //         $("#timer").html(timer);
+    //         timer =  timer -1;
+    //         setTimeout(function () {
+    //             countTime();
+    //         },1000);
+    //     }else {
+    //         $("#timer").html('倒计时结束！');
+    //         // alert(JSON.stringify(ChineseDistricts));
+    //     }
+    // }
 
     if (typeof window !== 'undefined') {
         window.ChineseDistricts = ChineseDistricts;
     }
-    // alert(JSON.stringify(ChineseDistricts));
+
     return ChineseDistricts;
+
 
 });
